@@ -10,7 +10,7 @@ It is required that you have Python 3 along with numpy, matplotlib, and scipy in
 
 # Entering Input Parameters
 
-Upon execuition, the python script will prompt you for some input parameters.
+Upon execuition, the python script will prompt you for some input parameters (Figure 1).
 
 You are first asked for the maximum attenuation in the stop bands and the minimum attenuation in the pass band.
 
