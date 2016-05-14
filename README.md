@@ -52,6 +52,6 @@ n operational amplifiers (Friend Circuits) are required for an nth order filter.
 
 
 # Auto Generated Bode Magnidute Plot
-[![Plot Output](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_image5.png)](#features)
+[![Plot Output](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_plot.png)](#features)
 
 The script will then call on matplotlib to generate the bode magnitude plot of the filter. Interactive cursors have been added to allow for inspection of the pass and stop band frequencies.
