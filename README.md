@@ -9,7 +9,7 @@ It is required that you have Python 3 along with numpy, matplotlib, and scipy in
 
 
 # Entering Input Parameters
-[![Input](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_image1.png)]
+[![Input](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_image1.png)](#features)
 
 Upon execuition, the python script will prompt you for some input parameters.
 
