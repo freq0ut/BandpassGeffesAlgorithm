@@ -1,5 +1,5 @@
 # Bandpass-Geffes-Algorithm
-Python program for bandpass filter design
+[Click here for the Python Script](/blob/master/Geffe_Friend_Bandpass.py) 
 
 
 # Using this Python script
