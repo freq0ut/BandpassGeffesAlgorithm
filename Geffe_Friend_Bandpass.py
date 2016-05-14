@@ -5,6 +5,7 @@ Created on Wed May 11 04:52:32 2016
 @author: Zack
 """
 
+from matplotlib.widgets import Cursor
 import numpy as np
 from scipy import signal
 import matplotlib.pyplot as plot
@@ -104,13 +105,15 @@ print("f1 (start of pass band):       " + str(round(omega_1/(2*np.pi),1)) + " Hz
 print("f2 (end of pass band):         " + str(round(omega_2/(2*np.pi),1)) + " Hz")
 print("f3 (end of HPF attenuation):   " + str(round(omega_3/(2*np.pi),1)) + " Hz")
 print("f4 (start of LPF attenuation): " + str(round(omega_4/(2*np.pi),1)) + " Hz")
-print("f0:                            " + str(round(omega_0/(2*np.pi),1)) + " Hz")
-print("Bandwidth:                     " + str(round(band_width,1)) + " Hz")
+print("f0 (center frequency):         " + str(round(omega_0/(2*np.pi),1)) + " Hz")
+print("Bandwidth:                     " + str(round(band_width/(2*np.pi),1)) + " Hz")
 print("q_c:                           " + str(round(q_c,1)))
 print("----------------------------------------------")
 
+# print(" ")
+# print("OMEGA_s = " + str(round(OMEGA_stop,2)) + ", OMEGA_o = " + str(round(OMEGA_0,2)) + ", and OMEGA_p has been normalized to " + str(OMEGA_pass) + ".")
+
 print(" ")
-#print("OMEGA_s = " + str(round(OMEGA_stop,2)) + ", OMEGA_o = " + str(round(OMEGA_0,2)) + ", and OMEGA_p has been normalized to " + str(OMEGA_pass) + ".")
 print(" ")
 print(" ")
 
@@ -137,7 +140,7 @@ r1_array = np.zeros(maxOrder)
 r2_array = np.zeros(maxOrder)
 r3_array = np.zeros(maxOrder)
 
-print("Butterworth LPF pole locations: ")
+print("Butterworth pole locations: ")
 print("----------------------------------------------")
 # determine pole locations
 if(nEven == True): # even number of poles calculations
@@ -181,11 +184,12 @@ print("----------------------------------------------")
 
 roundToDigits = 4
 
-if(testMode == 1):
-	print(" ")
-	print("SIGMA_i and OMEGA_i values: ")
+# begin Geffe's algorithm calcualtions:
 
 # calculate ∑_i and Ω_i
+if(testMode == 1):
+    print(" ")
+    print("SIGMA_i and OMEGA_i values: ")
 for i in iteration(0,numIter-1,1):
     sigma_array[i] = np.abs(np.real(poleLocations[i]))
     if(testMode == 1):
@@ -194,81 +198,73 @@ for i in iteration(0,numIter-1,1):
     if(testMode == 1):
     	print("OMEGA_= " + str(i+1) + ": " + str(round(omega_array[i],roundToDigits)))
 
-if(testMode == 1):
-	print(" ")
-	print("C_i values: ")
-
 # calculate C_i
+if(testMode == 1):
+    print(" ")
+    print("C_i values: ")
 for i in iteration(0,numIter-1,1):
     C_array[i] = np.power(sigma_array[i],2) + np.power(omega_array[i],2)
     if(testMode == 1):
     	print("C_" + str(i+1) + ": " + str(round(C_array[i],roundToDigits)))
 
-if(testMode == 1):
-	print(" ")
-	print("D_i values: ")
-
 # calculate D_i
+if(testMode == 1):
+    print(" ")
+    print("D_i values: ")
 for i in iteration(0,numIter-1,1):
     D_array[i] = 2*sigma_array[i]/q_c
     if(testMode == 1):
     	print("D_" + str(i+1) + ": " + str(round(D_array[i],roundToDigits)))
 
-if(testMode == 1):
-	print(" ")
-	print("E_i values: ")
-
 # calculate E_i
+if(testMode == 1):
+    print(" ")
+    print("E_i values: ")
 for i in iteration(0,numIter-1,1):
     E_array[i] = 4 + C_array[i]/np.power(q_c,2)
     if(testMode == 1):
     	print("E_" + str(i+1) + ": " + str(round(E_array[i],roundToDigits)))
 
-if(testMode == 1):    
-	print(" ")
-	print("G_i values: ")
-
 # calculate G_i
+if(testMode == 1):    
+    print(" ")
+    print("G_i values: ")
 for i in iteration(0,numIter-1,1):
     G_array[i] = np.sqrt(np.power(E_array[i],2) - 4*np.power(D_array[i],2))
     if(testMode == 1):
     	print("G_" + str(i+1) + ": " + str(round(G_array[i],roundToDigits)))
    
-if(testMode == 1):  
-	print(" ")
-	print("Q_i values: ")
-
 # calculate Q_i
+if(testMode == 1):  
+    print(" ")
+    print("Q_i values: ")
 for i in iteration(0,numIter-1,1):
     Q_array[i] = (1/D_array[i])*np.sqrt(0.5*(E_array[i] + G_array[i]))
     if(testMode == 1):
     	print("Q_" + str(i+1) + ": " + str(round(Q_array[i],roundToDigits)))
 
-if(testMode == 1):
-	print(" ")
-	print("K_i values: ")
-
 # calculate K_i
+if(testMode == 1):
+    print(" ")
+    print("K_i values: ")
 for i in iteration(0,numIter-1,1):
     K_array[i] = (sigma_array[i]*Q_array[i])/q_c
     if(testMode == 1):
     	print("K_" + str(i+1) + ": " + str(round(K_array[i],roundToDigits)))
 
-if(testMode == 1):
-	print(" ")
-	print("W_i values: ")
-
 # calculate W_i
+if(testMode == 1):
+    print(" ")
+    print("W_i values: ")
 for i in iteration(0,numIter-1,1):  
     W_array[i] = round(K_array[i],8) + np.sqrt(round(np.power(K_array[i],2),8) - 1)
     if(testMode == 1):
     	print("W_" + str(i+1) + ": " + str(round(W_array[i],roundToDigits)))
 
-if(testMode == 1):  
-	print(" ")
-	print("w0_i values: ")
-
 # calculate w0_i
+if(testMode == 1):  
+    print(" ")
+    print("w0_i values: ")
 for i in iteration(0,numIter-1,1): 
     if(i%2 == 0): # these are the odd w0's... (array index starts at 0)
         w0_array[i] = omega_0/W_array[i]
@@ -279,33 +275,38 @@ for i in iteration(0,numIter-1,1):
         if(testMode == 1):
         	print("w0_" + str(i+1) + ": " + str(round(w0_array[i],roundToDigits)))
 
-if(testMode == 1):     
-	print(" ")
-	print("kf_i values: ")
-
 # calculate kf
+if(testMode == 1):     
+    print(" ")
+    print("kf_i values: ")
 for i in iteration(0,numIter-1,1): 
     kf_array[i] = w0_array[i]
     if(testMode == 1):
     	print("kf_" + str(i+1) + ": " + str(round(kf_array[i],roundToDigits)))
 
+# calculate the gain of each stage and total gain
+print(" ")
+print(" ")
+print(" ")
+print("Gain of each stage / Total gain: ")
+print("----------------------------------------------")
 gainStageCounter = 1
 totalGain = 1
-# calculate the gain of each stage and total gain
-
 for i in iteration(0,numIter-1,1):
     gainStageNum = np.power((2*Q_array[i]*w0_array[i]*omega_0),2)
     gainStageDen = np.power(np.power(w0_array[i],2) - np.power(omega_0,2),2) + np.power(w0_array[i]*omega_0/Q_array[i],2)
     gainStage = np.sqrt(gainStageNum/gainStageDen)
     individGainStage[i] = gainStage
-    #print("The gain of stage " + str(gainStageCounter) + " is " + str(round(gainStage,2)))
+    print("The gain of stage " + str(gainStageCounter) + " would be " + str(round(gainStage,2)) + ", but has been corrected to unity.")
     gainStageCounter += 1
     totalGain = totalGain * gainStage
-#print("The overall gain is: " + str(round(totalGain,roundToDigits)) + " or " + str(round(20*np.log10(totalGain),roundToDigits)) + " dB")
+print(" ")
+print("The overall gain would be: " + str(round(totalGain,roundToDigits)) + " or " + str(round(20*np.log10(totalGain),roundToDigits)) + " dB (but has been corrected to 0 dB)")
+print("----------------------------------------------")
 
-# find capacitor value for realistic resistor values
-capVal = 1e-12
-maxIndex = numIter-2
+# find capacitor value for realistic resistor values (need to determine this before calculating k_m)
+capVal = 1e-12 # start at one picofarad and then increase until reasonable level (R2 of last stage is reference)
+maxIndex = numIter-1
 checkVal = (1/(2*kf_array[maxIndex]*Q_array[maxIndex]*capVal))*(1/(1-(1/individGainStage[maxIndex])))
 fail = 0
 while(checkVal > 1000):
@@ -314,32 +315,32 @@ while(checkVal > 1000):
     checkVal = (1/(2*kf_array[maxIndex]*Q_array[maxIndex]*capVal))*(1/(1-(1/individGainStage[maxIndex])))
     fail = 1
 
-if(testMode == 1):
-	print(" ")
-	print("km_i values: ")
+# caps stay unchanged... use capVal value
+c1 = capVal
+c2 = capVal
 
 # calculate km_i
+if(testMode == 1):
+    print(" ")
+    print("km_i values: ")
 for i in iteration(0,numIter-1,1): 
     km_array[i] = 1/(2*kf_array[i]*Q_array[i]*capVal)
     if(testMode == 1):
     	print("km_" + str(i+1) + ": " + str(round(km_array[i],roundToDigits)))
     
-# caps stay unchanged... use capVal value
-c1 = capVal
-c2 = capVal
 
-# calculate all R3's
-# this value is determined by km*4*Q^2 (feedback resistor)
+# calculate all R1s (top resistor in input divider)
 for i in iteration(0,numIter-1,1):
-	r3_array[i] = km_array[i]*4*np.power(Q_array[i],2)
+    r1_array[i] = km_array[i]*individGainStage[i]
 
-# set all R2's
+# set all R2s (bottom resistor in input divider)
 for i in iteration(0,numIter-1,1):
 	r2_array[i] = km_array[i]*(1/(1-(1/individGainStage[i])))
 
-# calculate all R1's
+# calculate all R3s
+# this value is determined by km*4*Q^2 (feedback resistor)
 for i in iteration(0,numIter-1,1):
-	r1_array[i] = km_array[i]*individGainStage[i]
+    r3_array[i] = km_array[i]*4*np.power(Q_array[i],2)
 
 # construct transfer functions using signal library
 num = np.zeros(2)
@@ -363,14 +364,10 @@ for i in iteration(2,numIter-1,1):
     tf_num = np.convolve(tf_num, num)
     tf_den = np.convolve(tf_den, den)
 
-# defien start and end freq for bode plots
-startFreq = omega_3/10
-endFreq = omega_4*10
+print(" ")
+print(" ")
+print(" ")
 
-# calculate input and feedback resistors
-print(" ")
-print(" ")
-print(" ")
 print("Component values:")
 print("----------------------------------------------")
 resistorCounter = 1
@@ -382,25 +379,83 @@ for i in iteration(0,numIter-1,1):
     print("Rf_" + str(resistorCounter) + ":  " + str(round(r3_array[i],2)))
     resistorCounter += 1
     print(" ")
-if(capVal*1e9 < 1000):
+if(capVal*1e9 < 999):
     print("The capacitor value for all caps is: " + str(round(capVal*1e9,4)) + " nF.")
 else:
     print("The capacitor value for all caps is: " + str(round(capVal*1e6,4)) + " uF.")
 print("----------------------------------------------")
 print(" ")
 
+# classes for plot snap-to cursors
+class Cursor(object):
+    def __init__(self, ax):
+        self.ax = ax
+        self.lx = ax.axhline(color='k')  # the horiz line
+        self.ly = ax.axvline(color='k')  # the vert line
+
+        # text location in axes coords
+        self.txt = ax.text(0.7, 0.9, '', transform=ax.transAxes)
+
+    def mouse_move(self, event):
+        if not event.inaxes:
+            return
+
+        x, y = event.xdata, event.ydata
+        # update the line positions
+        self.lx.set_ydata(y)
+        self.ly.set_xdata(x)
+
+        self.txt.set_text('x=%1.2f, y=%1.2f' % (x, y))
+        plot.draw()
+
+class SnaptoCursor(object):
+    """
+    Like Cursor but the crosshair snaps to the nearest x,y point
+    For simplicity, I'm assuming x is sorted
+    """
+    def __init__(self, ax, x, y):
+        self.ax = ax
+        self.lx = ax.axhline(color='k')  # the horiz line
+        self.ly = ax.axvline(color='k')  # the vert line
+        self.x = x
+        self.y = y
+        # text location in axes coords
+        self.txt = ax.text(0.7, 0.9, '', transform=ax.transAxes)
+
+    def mouse_move(self, event):
+
+        if not event.inaxes:
+            return
+
+        x, y = event.xdata, event.ydata
+
+        indx = np.searchsorted(self.x, [x])[0]
+        x = self.x[indx]
+        y = self.y[indx]
+        # update the line positions
+        self.lx.set_ydata(y)
+        self.ly.set_xdata(x)
+
+        self.txt.set_text('x=%1.2f, y=%1.2f' % (x, y))
+        # print('x=%1.2f, y=%1.2f' % (x, y))
+        plot.draw()
+
+# define start/end freq and freq step for bode plots
+startFreq = omega_3/10
+endFreq = omega_4*10
+freqStep = np.ceil((endFreq-startFreq)/1000)
+
 # bode plot for magnitude and phase
 tf = signal.lti(tf_num, tf_den)
-w, mag, phase = signal.bode(tf, np.arange(startFreq, endFreq, 1).tolist())
-plot.figure(1)
-plot.subplot(211)
-plot.semilogx (w/(2*np.pi), mag, color="blue", linewidth="2")
+w, mag, phase = signal.bode(tf, np.arange(startFreq, endFreq, freqStep).tolist())
+fig, ax = plot.subplots()
+
+plot.semilogx(w/(2*np.pi), mag, color="blue", linewidth="2")
 plot.autoscale(enable=True, axis='both', tight=None)
-plot.xlabel ("Frequency (Hz)")
-plot.ylabel ("Magnitude (dB)")
-plot.subplot(212)
-plot.semilogx (w/(2*np.pi), phase, color="red", linewidth="2")
-plot.autoscale(enable=True, axis='both', tight=None)
-plot.xlabel ("Frequency (Hz)")
-plot.ylabel ("Phase")
+plot.xlabel("Frequency (Hz)")
+plot.ylabel("Magnitude (dB)")
+
+cursor = SnaptoCursor(ax, w/(2*np.pi), mag)
+plot.connect('motion_notify_event', cursor.mouse_move)
+
 plot.show()
