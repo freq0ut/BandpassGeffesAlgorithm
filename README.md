@@ -49,9 +49,16 @@ This script is used for bandpass filter design using Friend Circuits. The script
 
 n operational amplifiers (Friend Circuits) are required for an nth order filter.
 
+In this particualr example, the output values correspond to the following topology. This example can be used as a general case, and the same arrangement will arise for any nth order output.
+
+[![Schematic](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_schematic.png)](#features)
+
 
 
 # Auto Generated Bode Magnidute Plot
 [![Plot Output](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_plot.png)](#features)
 
 The script will then call on matplotlib to generate the bode magnitude plot of the filter. Interactive cursors have been added to allow for inspection of the pass and stop band frequencies.
+
+Here is the frequency resposne of the circuit once it had been built in LTSpice:
+[![LTSpice Plot Output](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_lt_plot.png)](#features)
