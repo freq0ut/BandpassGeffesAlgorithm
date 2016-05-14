@@ -14,7 +14,7 @@ Upon execuition, the python script will prompt you for some input parameters.
 
 You are first asked for the maximum attenuation in the stop bands and the minimum attenuation in the pass band.
 
-Then, you are asked to specify the pass band frequencies (f1 and f2) and one of the attenuation frequencies (f3 or f4). The other frequency is solved for automatically.
+Then, you are asked to specify the pass band frequencies (f1 and f2) and *one* of the stop band frequencies (f3 or f4). The other stop band frequency is solved for automatically.
 
 [![Input](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_image1.png)](#features)
 Figure 1
