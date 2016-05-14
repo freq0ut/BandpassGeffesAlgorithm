@@ -2,7 +2,10 @@
 Python program for bandpass filter design
 
 
-## Using this Python script
+# Using this Python script
+
+It is required that you have Python 3 along with numpy, matplotlib, and scipy installed on your machine. The script can be execuited through the Powershell if you are a windows user by navigating to the directory where the Geffe_Friend_Bandpass.py file is located and then typing: python .\Geffe_Friend_Bandpass.py
+
 
 
 # Entering Input Parameters
