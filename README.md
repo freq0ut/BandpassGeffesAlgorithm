@@ -9,56 +9,77 @@ It is required that you have Python 3 along with numpy, matplotlib, and scipy in
 
 
 # Entering Input Parameters
-[![Input](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_image1.png)](#features)
 
 Upon execuition, the python script will prompt you for some input parameters.
 
 You are first asked for the maximum attenuation in the stop bands, and the minimum attenuation in the pass bands.
 
-Then, you're asked for the pass band frequencies and one of the attenuation frequencies, the other one is solved for automatically, you can do this by choosing option (3) or (4) when prompt to do so. See the following figure.
+Then, you're asked for the pass band frequencies and one of the attenuation frequencies, the other one is solved for automatically, you can do this by choosing option (3) or (4) when prompt to do so (Figure 1).
 
+[![Input](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_image1.png)](#features)
+Figure 1
 
 
 # Parameter Details
-[![Parameter Details](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_image2.png)](#features)
 
-The script will then return to you the information you had just entered, along with the minimum order filter required to meet your specifications.
+The script will then return to you the information you had just entered, along with the minimum order filter required to meet your specifications (Figure 2).
+
+[![Parameter Details](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_image2.png)](#features)
+Figure 2
 
 
 
 # Butterworth Pole Locations
-[![Butterworth Poles](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_image3.png)](#features)
 
-The locations of the poles are returned in both polar and rectangular format.
+The locations of the poles are returned in both polar and rectangular format (Figure 3).
+
+[![Butterworth Poles](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_image3.png)](#features)
+Figure 3
 
 
 
 # Gain Information
-[![Gain Picture](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_image4.png)](#features)
 
 The gain of each stage is normalized to unity, resulting in unity gain at the center frequency. 
 
 The script can be tweaked to create a filter/amplifier, or an additional amplifier can be added after the filter.
 
+[![Gain Picture](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_image4.png)](#features)
+Figure 4
+
 
 
 # Resistor and Capacitor Values
-[![Resistor and Cap Output](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_image5.png)](#features)
 
-This script is used for bandpass filter design using Friend Circuits. The script will automatically calcualte reasonable component values for each Friend Circuit.
+This script is used for bandpass filter design using Friend Circuits. The script will automatically calcualte reasonable component values for each Friend Circuit (Figure 5). 
 
 n operational amplifiers (Friend Circuits) are required for an nth order filter.
 
-In this particualr example, the output values correspond to the following topology. This example can be used as a general case, and the same arrangement will arise for any nth order output.
+In this particualr example, the output values correspond to the following topology. This example can be used as a general case, and the same arrangement will arise for any nth order output (Figure 6).
+
+[![Resistor and Cap Output](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_image5.png)](#features)
+Figure 5
 
 [![Schematic](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_schematic.png)](#features)
+Figure 6
 
 
 
 # Auto Generated Bode Magnidute Plot
-[![Plot Output](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_plot.png)](#features)
 
 The script will then call on matplotlib to generate the bode magnitude plot of the filter. Interactive cursors have been added to allow for inspection of the pass and stop band frequencies.
 
+[![Plot Output](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_plot.png)](#features)
+Figure 7
+
+
+# LT Spice AC Sweep
+
 Here is the frequency resposne of the circuit once it had been built in LTSpice:
+
 [![LTSpice Plot Output](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_lt_plot.png)](#features)
+Figure 8
+
+[Click here for the Python Script](/Geffe_Friend_Bandpass.py) 
+
+-Zack
