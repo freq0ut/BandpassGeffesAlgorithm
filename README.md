@@ -1,5 +1,5 @@
 # Bandpass-Geffes-Algorithm
-[Click here for the Python Script](/blob/master/Geffe_Friend_Bandpass.py) 
+[Click here for the Python Script](/Geffe_Friend_Bandpass.py) 
 
 
 # Using this Python script
