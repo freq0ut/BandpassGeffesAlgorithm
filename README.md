@@ -12,9 +12,9 @@ It is required that you have Python 3 along with numpy, matplotlib, and scipy in
 
 Upon execuition, the python script will prompt you for some input parameters.
 
-You are first asked for the maximum attenuation in the stop bands, and the minimum attenuation in the pass bands.
+You are first asked for the maximum attenuation in the stop bands and the minimum attenuation in the pass band.
 
-Then, you're asked for the pass band frequencies and one of the attenuation frequencies, the other one is solved for automatically, you can do this by choosing option (3) or (4) when prompt to do so (Figure 1).
+Then, you are asked to specify the pass band frequencies (f1 and f2) and one of the attenuation frequencies (f3 or f4). The other frequency is solved for automatically.
 
 [![Input](https://github.com/freq0ut/Bandpass-Geffes-Algorithm/blob/master/Pics/geffe_image1.png)](#features)
 Figure 1
