@@ -92,23 +92,7 @@ else: # odd case
     numIter = n
     numIterPoles = (n+1)/2
 
-# print back the specs
-print(" ")
-print(" ")
-print(" ")
-print("The bandpass filter will be designed using the following parameters: ")
-print("----------------------------------------------")
-print("n (minimum filter order):      " + str(n) + " (" + str(round(n_full,2)) + ")")
-print("a_min (atten. in stop band):   " + str(a_min) + " dB")
-print("a_max (atten. in pass band):   " + str(a_max) + " dB")
-print("f1 (start of pass band):       " + str(round(omega_1/(2*np.pi),1)) + " Hz")
-print("f2 (end of pass band):         " + str(round(omega_2/(2*np.pi),1)) + " Hz")
-print("f3 (end of HPF attenuation):   " + str(round(omega_3/(2*np.pi),1)) + " Hz")
-print("f4 (start of LPF attenuation): " + str(round(omega_4/(2*np.pi),1)) + " Hz")
-print("f0 (center frequency):         " + str(round(omega_0/(2*np.pi),1)) + " Hz")
-print("Bandwidth:                     " + str(round(band_width/(2*np.pi),1)) + " Hz")
-print("q_c:                           " + str(round(q_c,1)))
-print("----------------------------------------------")
+
 
 # print(" ")
 # print("OMEGA_s = " + str(round(OMEGA_stop,2)) + ", OMEGA_o = " + str(round(OMEGA_0,2)) + ", and OMEGA_p has been normalized to " + str(OMEGA_pass) + ".")
@@ -235,11 +219,13 @@ for i in iteration(0,numIter-1,1):
     	print("G_" + str(i+1) + ": " + str(round(G_array[i],roundToDigits)))
    
 # calculate Q_i
+Q_total = 1
 if(testMode == 1):  
     print(" ")
     print("Q_i values: ")
 for i in iteration(0,numIter-1,1):
     Q_array[i] = (1/D_array[i])*np.sqrt(0.5*(E_array[i] + G_array[i]))
+    Q_total = Q_total*Q_array[i]
     if(testMode == 1):
     	print("Q_" + str(i+1) + ": " + str(round(Q_array[i],roundToDigits)))
 
@@ -283,6 +269,24 @@ for i in iteration(0,numIter-1,1):
     kf_array[i] = w0_array[i]
     if(testMode == 1):
     	print("kf_" + str(i+1) + ": " + str(round(kf_array[i],roundToDigits)))
+
+# print back the specs
+print(" ")
+print(" ")
+print(" ")
+print("The bandpass filter will be designed using the following parameters: ")
+print("----------------------------------------------")
+print("n (minimum filter order):      " + str(n) + " (" + str(round(n_full,2)) + ")")
+print("a_min (atten. in stop band):   " + str(a_min) + " dB")
+print("a_max (atten. in pass band):   " + str(a_max) + " dB")
+print("f1 (start of pass band):       " + str(round(omega_1/(2*np.pi),1)) + " Hz")
+print("f2 (end of pass band):         " + str(round(omega_2/(2*np.pi),1)) + " Hz")
+print("f3 (end of HPF attenuation):   " + str(round(omega_3/(2*np.pi),1)) + " Hz")
+print("f4 (start of LPF attenuation): " + str(round(omega_4/(2*np.pi),1)) + " Hz")
+print("f0 (center frequency):         " + str(round(omega_0/(2*np.pi),1)) + " Hz")
+print("Bandwidth:                     " + str(round(band_width/(2*np.pi),1)) + " Hz")
+print("Q:                             " + str(round(Q_total,1)))
+print("----------------------------------------------")
 
 # calculate the gain of each stage and total gain
 print(" ")
@@ -451,10 +455,10 @@ w, mag, phase = signal.bode(tf, np.arange(startFreq, endFreq, freqStep).tolist()
 fig, ax = plot.subplots()
 
 plot.semilogx(w/(2*np.pi), mag, color="blue", linewidth="2")
-plot.autoscale(enable=True, axis='both', tight=None)
+#plot.autoscale(enable=False, axis='both', tight=False)
 plot.xlabel("Frequency (Hz)")
 plot.ylabel("Magnitude (dB)")
-
+plot.axis([omega_3/(2*np.pi)/10, omega_4/(2*np.pi)*10, -100, 10])
 cursor = SnaptoCursor(ax, w/(2*np.pi), mag)
 plot.connect('motion_notify_event', cursor.mouse_move)
 
