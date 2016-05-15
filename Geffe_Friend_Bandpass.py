@@ -92,8 +92,6 @@ else: # odd case
     numIter = n
     numIterPoles = (n+1)/2
 
-
-
 # print(" ")
 # print("OMEGA_s = " + str(round(OMEGA_stop,2)) + ", OMEGA_o = " + str(round(OMEGA_0,2)) + ", and OMEGA_p has been normalized to " + str(OMEGA_pass) + ".")
 
