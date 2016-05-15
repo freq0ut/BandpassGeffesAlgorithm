@@ -1,5 +1,6 @@
 # Bandpass-Geffes-Algorithm
-[Click here for the Python Script](/Geffe_Friend_Bandpass.py) 
+
+[Click here for my Blog post on Geffe's Algorithm Python Script](http://www.zackslab.com/2016/05/bandpass-filter-design-using-geffes-algorithm/) 
 
 
 # Using this Python script
